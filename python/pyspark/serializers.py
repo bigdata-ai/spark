@@ -265,7 +265,10 @@ class AutoBatchedSerializer(BatchedSerializer):
         batch, best = 1, self.bestSize
         iterator = iter(iterator)
         while True:
-            vs = list(itertools.islice(iterator, batch))
+            try:
+                vs = list(itertools.islice(iterator, batch))
+            except Exception as e:
+                continue
             if not vs:
                 break
 
